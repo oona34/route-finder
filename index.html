@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Arrivals</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Flight Arrivals</h1>
+    <label for="airport">Airport:</label>
+    <input type="text" id="airport" value="MRS" />
+    <label for="date">Date (YYYY-MM-DD):</label>
+    <input type="text" id="date" value="2024-08-30" />
+    <button id="fetchFlights">Fetch Flights</button>
+    <table id="flightTable">
+        <thead>
+            <tr>
+                <th>Flight Number</th>
+                <th>Airline</th>
+                <th>Arrival Time</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody id="flightData">
+        </tbody>
+    </table>
+
+    <script>
+        document.getElementById('fetchFlights').addEventListener('click', function() {
+            var airport = document.getElementById('airport').value;
+            var date = document.getElementById('date').value;
+
+            // Fetch flight data from the Travelpayouts API
+            fetch(`https://api.travelpayouts.com/v1/prices/cheap?origin=${airport}&destination=${airport}&depart_date=${date}&return_date=${date}&token=YOUR_TOKEN`)
+                .then(response => response.json())
+                .then(data => {
+                    // Extract and display flight information
+                    var flightData = data.data.map(flight => {
+                        return {
+                            flightNumber: flight.route[0].flight_number,
+                            airline: flight.route[0].airline_name,
+                            arrivalTime: flight.route[0].arrival_at,
+                            price: flight.price
+                        };
+                    });
+
+                    var flightTableBody = document.getElementById('flightData');
+                    flightTableBody.innerHTML = '';
+
+                    flightData.forEach(flight => {
+                        var row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${flight.flightNumber}</td>
+                            <td>${flight.airline}</td>
+                            <td>${flight.arrivalTime}</td>
+                            <td>${flight.price}</td>
+                        `;
+                        flightTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching flight data:', error));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "route-finder",
+  "version": "0.1.0",
+  "description": "App to find best multicity routing based on departure and arrival prices",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oona34/route-finder.git"
+  },
+  "author": "Jeanne Vibert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oona34/route-finder/issues"
+  },
+  "homepage": "https://github.com/oona34/route-finder#readme"
+}
