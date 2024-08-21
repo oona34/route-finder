@@ -41,8 +41,8 @@
             var airport = document.getElementById('airport').value;
             var date = document.getElementById('date').value;
 
-            // Fetch flight data from the Travelpayouts API
-            fetch(`https://api.travelpayouts.com/v1/prices/cheap?origin=${airport}&destination=${airport}&depart_date=${date}&return_date=${date}&token=YOUR_TOKEN`)
+            // Fetch flight data from the Travelpayouts API using your Kiwi API key
+            fetch(`https://api.travelpayouts.com/v1/prices/cheap?origin=${airport}&destination=${airport}&depart_date=${date}&return_date=${date}&token=YOUR_KIWI_API_KEY`)
                 .then(response => response.json())
                 .then(data => {
                     // Extract and display flight information
